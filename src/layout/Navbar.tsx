@@ -17,10 +17,10 @@ const Navbar = () => {
   // Navigation links array to be used in both desktop and mobile menus
   const navigationLinks = [
     { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/admin", label: "Dashboard" },
-    { href: "/user", label: "Dashboard" },
-    { href: "/tours", label: "Tours" },
+    { href: "/about", label: "About Us" },
+    { href: "/features", label: "Features" },
+    { href: "/contact", label: "Contact" },
+    { href: "/faq", label: "FAQ" },
   ];
   return (
     <header className="border-b container mx-auto px-4">
@@ -92,7 +92,7 @@ const Navbar = () => {
                       asChild
                       className="text-muted-foreground hover:text-primary py-1.5 font-medium"
                     >
-                      <a href={link.href}>{link.label}</a>
+                      <Link to={link.href}>{link.label}</Link>
                     </NavigationMenuLink>
                   </NavigationMenuItem>
                 ))}
@@ -111,6 +111,7 @@ const Navbar = () => {
           <Button asChild size="sm" className="text-sm">
             <Link to={"/login"}>Login</Link>
           </Button>
+          <Button>click</Button>
         </div>
       </div>
     </header>
