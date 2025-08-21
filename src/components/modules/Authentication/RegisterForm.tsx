@@ -14,12 +14,44 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 interface RegisterFormProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
 const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
-  const form = useForm();
+  const registerSchema = z
+    .object({
+      name: z.string().min(2, { error: "name is too short" }).max(50),
+      email: z.email(),
+      password: z.string().min(8, { error: "password is too sort" }),
+      confirmPassword: z
+        .string()
+        .min(8, { error: "confirm password is too sort" }),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: "Password do not match",
+      path: ["confirmPassword"],
+    });
+
+  const form = useForm<z.infer<typeof registerSchema>>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
+  const onSubmit = (data: z.infer<typeof registerSchema>) => {
+    const userinfo = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    };
+    console.log(userinfo);
+  };
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
@@ -31,10 +63,7 @@ const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
 
       <div className="grid gap-6">
         <Form {...form}>
-          <form
-            className="space-y-7"
-            //onSubmit={form.handleSubmit(onSubmit)}
-          >
+          <form className="space-y-7" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
               name="name"
