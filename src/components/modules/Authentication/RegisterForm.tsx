@@ -16,11 +16,13 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRegisterMutation } from "@/components/redux/Features/Auth/auth.api";
 interface RegisterFormProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
 const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
+  const [register] = useRegisterMutation();
   const registerSchema = z
     .object({
       name: z.string().min(2, { error: "name is too short" }).max(50),
@@ -44,13 +46,19 @@ const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
       confirmPassword: "",
     },
   });
-  const onSubmit = (data: z.infer<typeof registerSchema>) => {
+  const onSubmit = async (data: z.infer<typeof registerSchema>) => {
     const userinfo = {
       name: data.name,
       email: data.email,
       password: data.password,
     };
     console.log(userinfo);
+    try {
+      const res = await register(userinfo);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>

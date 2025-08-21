@@ -1,3 +1,4 @@
+import { useLoginMutation } from "@/components/redux/Features/Auth/auth.api";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -8,11 +9,46 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { toast } from "sonner";
+import z from "zod";
 
 const LoginForm = () => {
-  const form = useForm();
+  const [login] = useLoginMutation();
+  const navigate = useNavigate();
+  const loginSchema = z.object({
+    email: z.email(),
+    password: z.string().min(8, { error: "incorrect email and password" }),
+  });
+
+  const form = useForm<z.infer<typeof loginSchema>>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+  const onSubmit = async (data: z.infer<typeof loginSchema>) => {
+    const userinfo = {
+      email: data.email,
+      password: data.password,
+    };
+
+    console.log(userinfo);
+    try {
+      const res = await login(userinfo).unwrap();
+      if (res.success) {
+        toast.success(res.message);
+        navigate("/");
+      }
+
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className={"flex flex-col gap-6"}>
       <div className="flex flex-col items-center gap-2 text-center">
@@ -23,10 +59,7 @@ const LoginForm = () => {
       </div>
       <div className="grid gap-6">
         <Form {...form}>
-          <form
-            //onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-6"
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               control={form.control}
               name="email"
