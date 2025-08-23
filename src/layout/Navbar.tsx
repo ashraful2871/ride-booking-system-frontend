@@ -33,13 +33,14 @@ const Navbar = () => {
   // Navigation links array to be used in both desktop and mobile menus
   const navigationLinks = [
     { href: "/", label: "Home" },
+    { href: "/rides", label: "Rides" },
     { href: "/about", label: "About Us" },
     { href: "/features", label: "Features" },
     { href: "/contact", label: "Contact" },
     { href: "/faq", label: "FAQ" },
   ];
   return (
-    <header className="border-b container mx-auto px-4">
+    <header className="border-b ">
       <div className="flex h-16 items-center justify-between gap-4">
         {/* Left side */}
         <div className="flex items-center gap-2">
