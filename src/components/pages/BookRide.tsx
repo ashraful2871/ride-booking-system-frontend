@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -12,6 +12,7 @@ import {
 import { Label } from "../ui/label";
 import { useAllLocationQuery } from "../redux/Features/Ride/ride.api";
 import { useUserInfoQuery } from "../redux/Features/Auth/auth.api";
+import { useBookingRideMutation } from "../redux/Features/Rides/ride.api";
 
 interface ILocation {
   lat: number;
@@ -28,12 +29,13 @@ interface IRideLocation {
 const BookRide = () => {
   const { data } = useAllLocationQuery(undefined);
   const { data: userInfo } = useUserInfoQuery(undefined);
+  const [rideInfo] = useBookingRideMutation();
 
   const [pickupLocation, setPickupLocation] = useState<ILocation | null>(null);
   const [destinationLocation, setDestinationLocation] =
     useState<ILocation | null>(null);
 
-  const handleBookRide = () => {
+  const handleBookRide = async () => {
     if (!pickupLocation || !destinationLocation) {
       alert("Please select both locations");
       return;
@@ -45,7 +47,13 @@ const BookRide = () => {
       destinationLocation,
     };
 
-    console.log("Ride Data to send:", rideData);
+    // console.log("Ride Data to send:", rideData);
+    try {
+      const res = await rideInfo(rideData);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

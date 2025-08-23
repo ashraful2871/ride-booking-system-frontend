@@ -9,10 +9,35 @@ import {
 } from "../ui/card";
 import type { IRide } from "@/type/ride.type";
 import type { IRideResponse } from "@/type";
+import { Button } from "../ui/button";
+import {
+  useAcceptRideMutation,
+  useRejectRideMutation,
+} from "../redux/Features/Biker/biker.api";
 
 const Rides = () => {
   const { data }: IRideResponse = useGetAllRideQuery(undefined);
-  console.log(data);
+  const [acceptRide] = useAcceptRideMutation();
+  const [rejectRide] = useRejectRideMutation();
+  const handleAccept = async (id: string) => {
+    console.log(id);
+    try {
+      const res = await acceptRide(id).unwrap();
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleReject = async (id: string) => {
+    console.log(id);
+    try {
+      const res = await rejectRide(id).unwrap();
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {data?.data?.map((ride: IRide) => (
@@ -50,18 +75,34 @@ const Rides = () => {
               <Clock className="h-4 w-4" />
               <span className="text-xs">{ride.requestedAt}</span>
             </div>
+            <div>
+              {ride.driver ? (
+                <span className="text-xs text-gray-500">
+                  Driver: {ride.driver}{" "}
+                </span>
+              ) : (
+                <span className="text-xs text-gray-400 italic">
+                  No driver assigned
+                </span>
+              )}
+            </div>
           </CardContent>
 
-          <CardFooter className="flex justify-end">
-            {ride.driver ? (
-              <span className="text-xs text-gray-500">
-                Driver:{ride.driver}{" "}
-              </span>
-            ) : (
-              <span className="text-xs text-gray-400 italic">
-                No driver assigned
-              </span>
-            )}
+          <CardFooter className="flex justify-end gap-5">
+            <Button
+              onClick={() => handleAccept(ride._id)}
+              variant={"default"}
+              className="cursor-pointer"
+            >
+              Accept
+            </Button>
+            <Button
+              onClick={() => handleReject(ride._id)}
+              variant={"destructive"}
+              className="cursor-pointer"
+            >
+              Reject
+            </Button>
           </CardFooter>
         </Card>
       ))}
