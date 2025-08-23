@@ -1,4 +1,4 @@
-import { Badge, Car, Clock, DollarSign, MapPin } from "lucide-react";
+import { Car, Clock, DollarSign, MapPin } from "lucide-react";
 import { useGetAllRideQuery } from "../redux/Features/Ride/ride.api";
 import {
   Card,
@@ -14,6 +14,7 @@ import {
   useAcceptRideMutation,
   useRejectRideMutation,
 } from "../redux/Features/Biker/biker.api";
+import { Badge } from "../ui/badge";
 
 const Rides = () => {
   const { data }: IRideResponse = useGetAllRideQuery(undefined);
@@ -48,7 +49,15 @@ const Rides = () => {
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg font-semibold">Ride</CardTitle>
-              <Badge>{ride.status}</Badge>
+              <Badge variant="default" className="text-sm font-medium">
+                {ride.status === ("PENDING" as string) && "Pending"}
+                {ride.status === ("ACCEPTED" as string) && "Accepted"}
+                {ride.status === ("IN_PROGRESS" as string) && "In Transit"}
+                {ride.status === ("PICKED_UP" as string) && "Picked Up"}
+                {ride.status === ("COMPLETED" as string) && "Completed"}
+                {ride.status === ("REJECTED" as string) && "Rejected"}
+                {ride.status === ("CANCELLED" as string) && "Cancelled"}
+              </Badge>
             </div>
           </CardHeader>
 
