@@ -16,6 +16,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { role } from "@/constants/role";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router";
 
@@ -38,6 +39,7 @@ const Navbar = () => {
     { href: "/features", label: "Features" },
     { href: "/contact", label: "Contact" },
     { href: "/faq", label: "FAQ" },
+    { href: "/admin", label: "Dashboard", role: role.superAdmin },
   ];
   return (
     <header className="border-b ">

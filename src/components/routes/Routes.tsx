@@ -1,10 +1,16 @@
-import MainLayout from "@/layout/MainLayout";
+import MainLayout from "@/Common-Layout/MainLayout";
 import { createBrowserRouter } from "react-router";
 import Home from "../modules/HomePage/Home";
 import Login from "../pages/Login";
 import Registration from "../pages/Registration";
 import Rides from "../pages/Rides";
 import BookRide from "../pages/BookRide";
+import { withAuth } from "@/assets/utils/withAuth";
+import DashboardLayout from "@/Common-Layout/DashboardLayout";
+import { role } from "@/constants/role";
+import type { TRole } from "@/type";
+import { generateRoutes } from "@/assets/utils/generateRoutes";
+import { adminSidebarItems } from "./adminSidebarItems";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -23,6 +29,12 @@ export const router = createBrowserRouter([
         Component: BookRide,
       },
     ],
+  },
+
+  {
+    Component: withAuth(DashboardLayout, role.superAdmin as TRole),
+    path: "/admin",
+    children: [...generateRoutes(adminSidebarItems)],
   },
   {
     path: "/login",
