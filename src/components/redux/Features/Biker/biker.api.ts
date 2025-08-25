@@ -17,6 +17,15 @@ export const bikerApi = baseApi.injectEndpoints({
       invalidatesTags: ["RIDE"],
     }),
 
+    updateRideStatus: builder.mutation({
+      query: ({ id, status }) => ({
+        url: `/driver/status/${id}`,
+        method: "PATCH",
+        body: { status }, // ✅ will be mapped to axios "data"
+      }),
+      invalidatesTags: ["RIDE"],
+    }),
+
     getAllRider: builder.query({
       query: () => ({
         url: "/ride/all-rider",
@@ -27,4 +36,8 @@ export const bikerApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useAcceptRideMutation, useRejectRideMutation } = bikerApi;
+export const {
+  useAcceptRideMutation,
+  useRejectRideMutation,
+  useUpdateRideStatusMutation,
+} = bikerApi;

@@ -13,6 +13,7 @@ import { Button } from "../ui/button";
 import {
   useAcceptRideMutation,
   useRejectRideMutation,
+  useUpdateRideStatusMutation,
 } from "../redux/Features/Biker/biker.api";
 import { Badge } from "../ui/badge";
 
@@ -20,6 +21,7 @@ const Rides = () => {
   const { data }: IRideResponse = useGetAllRideQuery(undefined);
   const [acceptRide] = useAcceptRideMutation();
   const [rejectRide] = useRejectRideMutation();
+  const [updateRideStatus] = useUpdateRideStatusMutation();
   const handleAccept = async (id: string) => {
     console.log(id);
     try {
@@ -36,6 +38,15 @@ const Rides = () => {
       console.log(res);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleUpdateStatus = async (id: string, rideStatus: string) => {
+    try {
+      const res = await updateRideStatus({ id, status: rideStatus }).unwrap();
+      console.log("Updated:", res);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -98,20 +109,59 @@ const Rides = () => {
           </CardContent>
 
           <CardFooter className="flex justify-end gap-5">
-            <Button
-              onClick={() => handleAccept(ride._id)}
-              variant={"default"}
-              className="cursor-pointer"
-            >
-              Accept
-            </Button>
-            <Button
-              onClick={() => handleReject(ride._id)}
-              variant={"destructive"}
-              className="cursor-pointer"
-            >
-              Reject
-            </Button>
+            {ride.status === ("PENDING" as string) && (
+              <>
+                <Button
+                  onClick={() => handleAccept(ride._id)}
+                  disabled={ride.status === ("REJECTED" as string)}
+                  variant={"default"}
+                  className="cursor-pointer"
+                >
+                  Accept
+                </Button>
+                <Button
+                  onClick={() => handleReject(ride._id)}
+                  disabled={ride.status === ("REJECTED" as string)}
+                  variant={"destructive"}
+                  className="cursor-pointer"
+                >
+                  Reject
+                </Button>
+              </>
+            )}
+            {ride.status === ("ACCEPTED" as string) && (
+              <>
+                <Button
+                  onClick={() => handleUpdateStatus(ride._id, "PICKED_UP")}
+                  variant={"default"}
+                  className="cursor-pointer"
+                >
+                  Pick UP
+                </Button>
+              </>
+            )}
+            {ride.status === ("PICKED_UP" as string) && (
+              <>
+                <Button
+                  onClick={() => handleUpdateStatus(ride._id, "IN_PROGRESS")}
+                  variant={"default"}
+                  className="cursor-pointer"
+                >
+                  Inprogress
+                </Button>
+              </>
+            )}
+            {ride.status === ("IN_PROGRESS" as string) && (
+              <>
+                <Button
+                  onClick={() => handleUpdateStatus(ride._id, "COMPLETED")}
+                  variant={"default"}
+                  className="cursor-pointer"
+                >
+                  Complete
+                </Button>
+              </>
+            )}
           </CardFooter>
         </Card>
       ))}

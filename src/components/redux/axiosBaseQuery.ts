@@ -10,16 +10,17 @@ const axiosBaseQuery =
       data?: AxiosRequestConfig["data"];
       params?: AxiosRequestConfig["params"];
       headers?: AxiosRequestConfig["headers"];
+      body?: AxiosRequestConfig["body"];
     },
     unknown,
     unknown
   > =>
-  async ({ url, method, data, params, headers }) => {
+  async ({ url, method, data, body, params, headers }) => {
     try {
       const result = await axiosInstance({
         url: url,
         method,
-        data,
+        data: body ?? data,
         params,
         headers,
       });
