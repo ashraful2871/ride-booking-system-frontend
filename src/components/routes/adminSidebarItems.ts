@@ -2,6 +2,7 @@
 import type { ISidebarItems } from "@/type";
 import UserManagement from "../pages/Admin/UserManagement";
 import Analytics from "../pages/Admin/Analytics";
+import ApprovedStatus from "../pages/Admin/ApprovedStatus";
 
 export const adminSidebarItems: ISidebarItems[] = [
   {
@@ -11,6 +12,11 @@ export const adminSidebarItems: ISidebarItems[] = [
         title: "User Management",
         url: "/admin/user-management",
         component: UserManagement,
+      },
+      {
+        title: "Approved Driver Status",
+        url: "/admin/approved-status",
+        component: ApprovedStatus,
       },
       {
         title: "Analytic",

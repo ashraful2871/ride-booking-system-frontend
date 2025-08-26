@@ -1,36 +1,41 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import type { IRiderResponse } from "@/type";
 
-const UserTable = ({ data }) => {
-  console.log(data?.data);
+const UserTable = ({ data }: IRiderResponse) => {
+  console.log(data);
   return (
     <div>
       <Table>
-        <TableCaption>A list of your recent invoices.</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead>Invoice</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Method</TableHead>
-            <TableHead>Amount</TableHead>
-            <TableHead>Amount</TableHead>
+            <TableHead className="text-center">Name</TableHead>
+            <TableHead className="text-center">Email</TableHead>
+            <TableHead className="text-center">Role</TableHead>
+            <TableHead className="text-center">Block Status</TableHead>
+            <TableHead className="text-center">Active Status</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {data?.data?.map((user) => (
-            <TableRow key={user?._id}>
+            <TableRow className="text-center" key={user?._id}>
               <TableCell>{user.name}</TableCell>
-              <TableCell>Paid</TableCell>
-              <TableCell>Credit Card</TableCell>
-              <TableCell>$250.00</TableCell>
-              <TableCell>$250.00</TableCell>
+              <TableCell>{user.email}</TableCell>
+              <TableCell>{user.role}</TableCell>
+              <TableCell>
+                {user.isDeleted ? (
+                  <span className="text-red-500">BLOCKED</span>
+                ) : (
+                  <span className="text-green-500">ACTIVE</span>
+                )}
+              </TableCell>
+              <TableCell>{user.isActive}</TableCell>
             </TableRow>
           ))}
         </TableBody>

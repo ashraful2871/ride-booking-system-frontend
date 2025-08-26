@@ -21,17 +21,17 @@ export const bikerApi = baseApi.injectEndpoints({
       query: ({ id, status }) => ({
         url: `/driver/status/${id}`,
         method: "PATCH",
-        body: { status }, // ✅ will be mapped to axios "data"
+        body: { status },
       }),
       invalidatesTags: ["RIDE"],
     }),
 
-    getAllRider: builder.query({
+    getAllDriver: builder.query({
       query: () => ({
-        url: "/ride/all-rider",
+        url: "/driver/all-drivers",
         method: "GET",
       }),
-      providesTags: ["RIDER"],
+      // providesTags: ["RIDER"],
     }),
   }),
 });
@@ -40,4 +40,5 @@ export const {
   useAcceptRideMutation,
   useRejectRideMutation,
   useUpdateRideStatusMutation,
+  useGetAllDriverQuery,
 } = bikerApi;

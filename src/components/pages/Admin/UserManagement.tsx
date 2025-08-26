@@ -6,8 +6,15 @@ const UserManagement = () => {
 
   return (
     <div>
-      <h2>i am user UserManagement</h2>
-      <UserTable data={data}></UserTable>
+      <h2 className="text-center text-2xl mb-10"> User Management</h2>
+      {data && (
+        <UserTable
+          success={data.success}
+          statusCode={data.statusCode}
+          message={data.message}
+          data={data}
+        />
+      )}
     </div>
   );
 };
