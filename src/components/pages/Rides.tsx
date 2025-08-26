@@ -8,7 +8,6 @@ import {
   CardTitle,
 } from "../ui/card";
 import type { IRide } from "@/type/ride.type";
-import type { IRideResponse } from "@/type";
 import { Button } from "../ui/button";
 import {
   useAcceptRideMutation,
@@ -18,7 +17,8 @@ import {
 import { Badge } from "../ui/badge";
 
 const Rides = () => {
-  const { data }: IRideResponse = useGetAllRideQuery(undefined);
+  const { data } = useGetAllRideQuery(undefined);
+  console.log(data);
   const [acceptRide] = useAcceptRideMutation();
   const [rejectRide] = useRejectRideMutation();
   const [updateRideStatus] = useUpdateRideStatusMutation();

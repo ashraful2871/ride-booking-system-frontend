@@ -1,13 +1,10 @@
 import type { ComponentType } from "react";
-import type { IRide } from "./ride.type";
 
-export interface IRideResponse {
+export interface IRideResponse<T> {
   success: boolean;
   statusCode: number;
   message: string;
-  data: {
-    data: IRide[];
-  };
+  data: T[];
 }
 
 export interface ISidebarItems {
@@ -33,7 +30,7 @@ export interface IRider {
   email: string;
   role: TRole;
   isDeleted: boolean;
-  isActive: TUserStatus;
+  isActive: string;
   auth: AuthProvider[];
   createdAt: string;
   updatedAt: string;
@@ -43,17 +40,13 @@ export interface IRiderResponse {
   success: boolean;
   statusCode: number;
   message: string;
-  data: {
-    data: IRider[];
-  };
+  data: IRider[];
 }
 export interface IResponse<T> {
   success: boolean;
   statusCode: number;
   message: string;
-  data: {
-    data: T[];
-  };
+  data: T[];
 }
 
 export type IDriverApprovedStatus = "PENDING" | "APPROVED" | "SUSPENDED";

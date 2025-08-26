@@ -1,3 +1,4 @@
+import type { IRideResponse } from "@/type";
 import { baseApi } from "../../baseApi";
 import type { IRide } from "@/type/ride.type";
 
@@ -11,7 +12,7 @@ export const rideApi = baseApi.injectEndpoints({
       }),
     }),
 
-    getAllRide: builder.query<IRide, void>({
+    getAllRide: builder.query<IRideResponse<IRide>, void>({
       query: () => ({
         url: "/ride/all-rides",
         method: "GET",
