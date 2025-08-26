@@ -1,3 +1,4 @@
+import type { IDriver, IResponse } from "@/type";
 import { baseApi } from "../../baseApi";
 
 export const bikerApi = baseApi.injectEndpoints({
@@ -25,13 +26,27 @@ export const bikerApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["RIDE"],
     }),
+    driverApprovedStatus: builder.mutation({
+      query: (id) => ({
+        url: `/driver/approved-driver-status/${id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["BIKER"],
+    }),
+    driverSuspendStatus: builder.mutation({
+      query: (id) => ({
+        url: `/driver/suspended-driver-status/${id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["BIKER"],
+    }),
 
-    getAllDriver: builder.query({
+    getAllDriver: builder.query<IResponse<IDriver>, void>({
       query: () => ({
         url: "/driver/all-drivers",
         method: "GET",
       }),
-      // providesTags: ["RIDER"],
+      providesTags: ["BIKER"],
     }),
   }),
 });
@@ -41,4 +56,6 @@ export const {
   useRejectRideMutation,
   useUpdateRideStatusMutation,
   useGetAllDriverQuery,
+  useDriverApprovedStatusMutation,
+  useDriverSuspendStatusMutation,
 } = bikerApi;
