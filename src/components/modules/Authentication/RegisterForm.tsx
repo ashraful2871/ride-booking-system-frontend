@@ -13,15 +13,17 @@ import Password from "@/components/ui/Password";
 import { cn } from "@/lib/utils";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRegisterMutation } from "@/components/redux/Features/Auth/auth.api";
+import { toast } from "sonner";
 interface RegisterFormProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
 const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
+  const navigate = useNavigate();
   const [register] = useRegisterMutation();
   const registerSchema = z
     .object({
@@ -56,6 +58,10 @@ const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
     try {
       const res = await register(userinfo);
       console.log(res);
+      if (res?.data?.success) {
+        toast.success("Registration Successfully please login");
+        navigate("/login");
+      }
     } catch (error) {
       console.log(error);
     }

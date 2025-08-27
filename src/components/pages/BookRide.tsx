@@ -53,7 +53,7 @@ const BookRide = () => {
     try {
       const res = await rideInfo(rideData);
       console.log(res);
-      if (res.data.success) {
+      if (res?.data?.success) {
         toast.success("Ride Booking Successfully");
       }
     } catch (error) {
