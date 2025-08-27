@@ -21,7 +21,7 @@ interface AuthProvider {
   providerId: string;
 }
 
-export type TRole = "SUPER_ADMIN" | "USER" | "ADMIN";
+export type TRole = "SUPER_ADMIN" | "USER" | "ADMIN" | "DRIVER";
 export type TUserStatus = "ACTIVE" | "INACTIVE" | "SUSPENDED";
 
 export interface IRider {
@@ -59,7 +59,7 @@ export interface IDriver {
   licenseNumber: string;
   nationalId: string;
   isOnline: boolean;
-  approvedStatus: IDriverApprovedStatus;
+  approvedStatus: string;
   totalEarning: number;
   createdAt: string;
   updatedAt: string;

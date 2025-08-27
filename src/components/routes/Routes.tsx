@@ -12,6 +12,7 @@ import type { TRole } from "@/type";
 import { generateRoutes } from "@/assets/utils/generateRoutes";
 import { adminSidebarItems } from "./adminSidebarItems";
 import { userSidebarItems } from "./userSidebarItems";
+import { driverSidebarItems } from "./driverSidebarItems";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -41,6 +42,11 @@ export const router = createBrowserRouter([
     Component: withAuth(DashboardLayout, role.rider as TRole),
     path: "/rider",
     children: [...generateRoutes(userSidebarItems)],
+  },
+  {
+    Component: withAuth(DashboardLayout, role.driver as TRole),
+    path: "/driver",
+    children: [...generateRoutes(driverSidebarItems)],
   },
   {
     path: "/login",

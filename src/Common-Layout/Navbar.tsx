@@ -41,6 +41,7 @@ const Navbar = () => {
     { href: "/faq", label: "FAQ" },
     { href: "/admin", label: "Dashboard", role: role.superAdmin },
     { href: "/rider", label: "Dashboard", role: role.rider },
+    { href: "/driver", label: "Dashboard", role: role.driver },
   ];
   return (
     <header className="border-b ">

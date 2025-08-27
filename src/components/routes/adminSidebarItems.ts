@@ -25,14 +25,14 @@ export const adminSidebarItems: ISidebarItems[] = [
       },
     ],
   },
-  {
-    title: "Tour MAnagement",
-    items: [
-      //   {
-      //     title: "Add Division",
-      //     url: "/admin/add-division",
-      //    component:<><>
-      //   },
-    ],
-  },
+  // {
+  //   title: "Tour MAnagement",
+  //   items: [
+  //     //   {
+  //     //     title: "Add Division",
+  //     //     url: "/admin/add-division",
+  //     //    component:<><>
+  //     //   },
+  //   ],
+  // },
 ];

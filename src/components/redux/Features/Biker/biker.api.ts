@@ -1,5 +1,10 @@
 import type { IDriver, IResponse } from "@/type";
 import { baseApi } from "../../baseApi";
+import type {
+  IDriverEarning,
+  IDriverRide,
+  IDriverRideResponse,
+} from "@/type/driver.type";
 
 export const bikerApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -48,6 +53,16 @@ export const bikerApi = baseApi.injectEndpoints({
       }),
       providesTags: ["BIKER"],
     }),
+    getDriverEarningHistory: builder.query<
+      IDriverRideResponse<IDriverEarning<IDriverRide>>,
+      void
+    >({
+      query: () => ({
+        url: "/driver/earnings",
+        method: "GET",
+      }),
+      providesTags: ["BIKER"],
+    }),
   }),
 });
 
@@ -58,4 +73,5 @@ export const {
   useGetAllDriverQuery,
   useDriverApprovedStatusMutation,
   useDriverSuspendStatusMutation,
+  useGetDriverEarningHistoryQuery,
 } = bikerApi;
