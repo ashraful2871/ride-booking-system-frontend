@@ -13,6 +13,10 @@ import { generateRoutes } from "@/assets/utils/generateRoutes";
 import { adminSidebarItems } from "./adminSidebarItems";
 import { userSidebarItems } from "./userSidebarItems";
 import { driverSidebarItems } from "./driverSidebarItems";
+import About from "../pages/About";
+import Features from "../pages/Features";
+import Contact from "../pages/Contact";
+import FAQ from "../pages/FAQ";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -24,11 +28,27 @@ export const router = createBrowserRouter([
       },
       {
         path: "/rides",
-        Component: Rides,
+        Component: withAuth(Rides),
       },
       {
         path: "/booking-ride",
         Component: BookRide,
+      },
+      {
+        path: "/about",
+        Component: About,
+      },
+      {
+        path: "/features",
+        Component: Features,
+      },
+      {
+        path: "/contact",
+        Component: Contact,
+      },
+      {
+        path: "/faq",
+        Component: FAQ,
       },
     ],
   },

@@ -1,7 +1,6 @@
 // import Analytics from "@/pages/admin/Analytics";
 import type { ISidebarItems } from "@/type";
 import UserManagement from "../pages/Admin/UserManagement";
-import Analytics from "../pages/Admin/Analytics";
 import ApprovedStatus from "../pages/Admin/ApprovedStatus";
 
 export const adminSidebarItems: ISidebarItems[] = [
@@ -18,11 +17,11 @@ export const adminSidebarItems: ISidebarItems[] = [
         url: "/admin/approved-status",
         component: ApprovedStatus,
       },
-      {
-        title: "Analytic",
-        url: "/admin/analytics",
-        component: Analytics,
-      },
+      // {
+      //   title: "Analytic",
+      //   url: "/admin/analytics",
+      //   component: Analytics,
+      // },
     ],
   },
   // {

@@ -1,3 +1,4 @@
+import Loading from "@/components/Loading/Loading";
 import {
   useDriverApprovedStatusMutation,
   useDriverSuspendStatusMutation,
@@ -21,7 +22,7 @@ import {
 import type { IDriver } from "@/type";
 
 const ApprovedStatus = () => {
-  const { data } = useGetAllDriverQuery(undefined);
+  const { data, isLoading } = useGetAllDriverQuery(undefined);
   const [approvedStatus] = useDriverApprovedStatusMutation();
   const [suspendStatus] = useDriverSuspendStatusMutation();
 
@@ -39,6 +40,9 @@ const ApprovedStatus = () => {
       console.log(error);
     }
   };
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
   return (
     <div>
       <h1 className="text-center text-2xl mb-10">Driver Approved Status</h1>

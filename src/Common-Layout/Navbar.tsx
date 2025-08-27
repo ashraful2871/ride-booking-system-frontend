@@ -34,7 +34,8 @@ const Navbar = () => {
   // Navigation links array to be used in both desktop and mobile menus
   const navigationLinks = [
     { href: "/", label: "Home" },
-    { href: "/rides", label: "Rides" },
+    { href: "/booking-ride", label: "Booking Ride" },
+    { href: "/rides", label: "Rides", role: role.driver },
     { href: "/about", label: "About Us" },
     { href: "/features", label: "Features" },
     { href: "/contact", label: "Contact" },

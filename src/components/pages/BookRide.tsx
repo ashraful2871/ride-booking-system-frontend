@@ -13,6 +13,8 @@ import { Label } from "../ui/label";
 import { useAllLocationQuery } from "../redux/Features/Ride/ride.api";
 import { useUserInfoQuery } from "../redux/Features/Auth/auth.api";
 import { useBookingRideMutation } from "../redux/Features/Rides/ride.api";
+import { toast } from "sonner";
+import { Button } from "../ui/button";
 
 interface ILocation {
   lat: number;
@@ -29,7 +31,7 @@ interface IRideLocation {
 const BookRide = () => {
   const { data } = useAllLocationQuery(undefined);
   const { data: userInfo } = useUserInfoQuery(undefined);
-  const [rideInfo] = useBookingRideMutation();
+  const [rideInfo, { isLoading }] = useBookingRideMutation();
 
   const [pickupLocation, setPickupLocation] = useState<ILocation | null>(null);
   const [destinationLocation, setDestinationLocation] =
@@ -51,6 +53,9 @@ const BookRide = () => {
     try {
       const res = await rideInfo(rideData);
       console.log(res);
+      if (res.data.success) {
+        toast.success("Ride Booking Successfully");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -110,12 +115,9 @@ const BookRide = () => {
         </Select>
       </div>
 
-      <button
-        onClick={handleBookRide}
-        className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
-      >
-        Book Ride
-      </button>
+      <Button disabled={isLoading} onClick={handleBookRide}>
+        {isLoading ? "Booking..." : "Book Ride"}
+      </Button>
     </div>
   );
 };
