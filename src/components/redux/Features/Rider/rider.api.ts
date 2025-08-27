@@ -1,3 +1,4 @@
+import type { IResponse, IRide } from "@/type";
 import { baseApi } from "../../baseApi";
 
 export const riderApi = baseApi.injectEndpoints({
@@ -17,7 +18,14 @@ export const riderApi = baseApi.injectEndpoints({
       }),
       providesTags: ["RIDER"],
     }),
+    getViewRideHistory: builder.query<IResponse<IRide>, void>({
+      query: () => ({
+        url: "/ride/view-ride-history",
+        method: "GET",
+      }),
+      providesTags: ["RIDER"],
+    }),
   }),
 });
 
-export const { useGetAllRiderQuery } = riderApi;
+export const { useGetAllRiderQuery, useGetViewRideHistoryQuery } = riderApi;

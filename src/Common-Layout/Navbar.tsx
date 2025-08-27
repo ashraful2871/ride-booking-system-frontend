@@ -40,6 +40,7 @@ const Navbar = () => {
     { href: "/contact", label: "Contact" },
     { href: "/faq", label: "FAQ" },
     { href: "/admin", label: "Dashboard", role: role.superAdmin },
+    { href: "/rider", label: "Dashboard", role: role.rider },
   ];
   return (
     <header className="border-b ">
@@ -84,15 +85,18 @@ const Navbar = () => {
             <PopoverContent align="start" className="w-36 p-1 md:hidden">
               <NavigationMenu className="max-w-none *:w-full">
                 <NavigationMenuList className="flex-col items-start gap-0 md:gap-2">
-                  {navigationLinks.map((link, index) => (
-                    <>
+                  {navigationLinks.map((link, index) => {
+                    if (link.role && link.role !== data?.data?.role) {
+                      return null;
+                    }
+                    return (
                       <NavigationMenuItem key={index} className="w-full">
                         <NavigationMenuLink href={link.href} className="py-1.5">
                           {link.label}
                         </NavigationMenuLink>
                       </NavigationMenuItem>
-                    </>
-                  ))}
+                    );
+                  })}
                 </NavigationMenuList>
               </NavigationMenu>
             </PopoverContent>
@@ -105,16 +109,22 @@ const Navbar = () => {
             {/* Navigation menu */}
             <NavigationMenu className="max-md:hidden">
               <NavigationMenuList className="gap-2">
-                {navigationLinks.map((link, index) => (
-                  <NavigationMenuItem key={index}>
-                    <NavigationMenuLink
-                      asChild
-                      className="text-muted-foreground hover:text-primary py-1.5 font-medium"
-                    >
-                      <Link to={link.href}>{link.label}</Link>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                ))}
+                {navigationLinks.map((link, index) => {
+                  // If link has role, only show if user has that role
+                  if (link.role && link.role !== data?.data?.role) {
+                    return null;
+                  }
+                  return (
+                    <NavigationMenuItem key={index}>
+                      <NavigationMenuLink
+                        asChild
+                        className="text-muted-foreground hover:text-primary py-1.5 font-medium"
+                      >
+                        <Link to={link.href}>{link.label}</Link>
+                      </NavigationMenuLink>
+                    </NavigationMenuItem>
+                  );
+                })}
               </NavigationMenuList>
             </NavigationMenu>
           </div>

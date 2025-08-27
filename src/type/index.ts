@@ -64,3 +64,25 @@ export interface IDriver {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface Location {
+  lat: number;
+  lng: number;
+  address: string;
+}
+
+export interface IRide {
+  _id: string;
+  rider: string;
+  driver: string;
+  pickupLocation: Location;
+  destinationLocation: Location;
+  status: string;
+  fare: number;
+  requestedAt: string;
+  createdAt: string;
+  updatedAt: string;
+  acceptedAt?: string;
+  pickedUpAt?: string;
+  completedAt?: string;
+}
