@@ -75,7 +75,7 @@ Welcome to the **Ride Booking System** frontend! This application is a modern, r
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/ride-booking-system-frontend.git
+https://github.com/ashraful2871/ride-booking-system-frontend.git
 cd ride-booking-system-frontend
 ```
 
