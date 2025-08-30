@@ -8,6 +8,7 @@ import type { IDriverRide } from "@/type/driver.type";
 
 const DriverEarning = () => {
   const { data, isLoading } = useGetDriverEarningHistoryQuery(undefined);
+  console.log(data);
 
   if (isLoading) return <p className="text-center py-6">Loading...</p>;
   if (!data) return <p className="text-center py-6">No data found</p>;
