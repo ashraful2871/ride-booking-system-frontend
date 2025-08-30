@@ -1,3 +1,4 @@
+import type { IUser, IUserResponse } from "@/type";
 import { baseApi } from "../../baseApi";
 
 export const authApi = baseApi.injectEndpoints({
@@ -16,7 +17,14 @@ export const authApi = baseApi.injectEndpoints({
         data: userInfo,
       }),
     }),
-    userInfo: builder.query({
+    updateProfile: builder.mutation({
+      query: (updateInfo) => ({
+        url: "/user/update-profile",
+        method: "PATCH",
+        data: updateInfo,
+      }),
+    }),
+    userInfo: builder.query<IUserResponse<IUser>, void>({
       query: () => ({
         url: "/user/me",
         method: "GET",
@@ -36,6 +44,7 @@ export const authApi = baseApi.injectEndpoints({
 export const {
   useRegisterMutation,
   useLoginMutation,
+  useUpdateProfileMutation,
   useUserInfoQuery,
   useLogoutMutation,
 } = authApi;

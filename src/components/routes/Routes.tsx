@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/booking-ride",
-        Component: BookRide,
+        Component: withAuth(BookRide),
       },
       {
         path: "/about",

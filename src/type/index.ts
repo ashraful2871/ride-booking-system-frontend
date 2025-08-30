@@ -86,3 +86,28 @@ export interface IRide {
   pickedUpAt?: string;
   completedAt?: string;
 }
+
+export interface IUserResponse<T> {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: T;
+}
+
+interface IUserAuth {
+  provider: string;
+  providerId: string;
+}
+
+export interface IUser {
+  _id: string;
+  name: string;
+  email: string;
+  role: string;
+  isDeleted: boolean;
+  isActive: string;
+  auth: IUserAuth[];
+  createdAt: string;
+  updatedAt: string;
+  phone?: string;
+}
